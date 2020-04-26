@@ -32,7 +32,7 @@ function App() {
   </div>
 </nav>
        
-        testing
+        main app
      </div>
     
   );
