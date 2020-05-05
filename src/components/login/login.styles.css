@@ -1,0 +1,28 @@
+
+
+.btn-center
+{
+    text-align: center;
+}
+
+.btn-primary
+{
+    background-color: #0275d8;
+    color: white;
+}
+
+.button-link
+{
+        background-color: white;
+        border: none;
+        color: blue;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        /* font-size: 20px; */
+        
+        cursor: pointer;
+        
+}
+
+ 

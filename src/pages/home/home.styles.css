@@ -1,0 +1,18 @@
+.list-group-item {
+    padding: .25rem;
+    border: none ;
+    font-weight: bold;
+    
+}
+
+.padding-top
+{
+    padding-top: 25px;
+}
+
+
+.list-divider
+{
+    border-bottom: 0.02rem solid gray;
+    margin-bottom: 10px; 
+}
