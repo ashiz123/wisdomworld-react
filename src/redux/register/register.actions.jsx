@@ -8,14 +8,18 @@ const baseUrl = 'http://localhost:8000/api/v1';
 
 export const RegisterUser =  user =>async (dispatch) =>
 {
-         dispatch(requestRegister(user));
+ 
+         dispatch(requestRegister());
         return await axios.post(`${baseUrl}/register`, user)
           
           .then(
             response => {
+              
             try{
-              dispatch(successRegister(response.data.success.user));
-              localStorage.setItem('token', response.data.success.token) 
+              console.log(response);
+              dispatch(successRegister(response.data.data.user));
+              localStorage.setItem('token', response.data.data.token) 
+              window.location.reload(false);
               
             } 
             catch(err){
@@ -34,7 +38,7 @@ export const RegisterUser =  user =>async (dispatch) =>
             dispatch(failureRegister(error));
           });
 
-          function requestRegister(user) {return {type:RegisterActionTypes.REGISTER_REQUEST, user}}
+          function requestRegister() {return {type:RegisterActionTypes.REGISTER_REQUEST}}
           function successRegister(user) { return { type: RegisterActionTypes.REGISTER_SUCCESS, user } }
           function failureRegister(error) { return { type: RegisterActionTypes.REGISTER_FAILURE, error } }
           // function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }

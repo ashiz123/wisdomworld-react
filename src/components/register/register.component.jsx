@@ -5,6 +5,7 @@ import './register.styles.css';
 import {RegisterUser} from '../../redux/register/register.actions'
 
 import {connect}from 'react-redux';
+import {loginForm} from '../../redux/loginForm/loginForm.actions'
 // import {ConfigureStore} from '../../redux/';
 import {RegisterRequest} from '../../redux/register/register.actions';
 // import {userActions} from '../../redux/register/register.actionCreator';
@@ -15,15 +16,17 @@ const url = 'http://localhost:8000/api/v1/register'
 
 
 const mapDispatchToProps = dispatch =>({
-    registerUser : user => dispatch(RegisterUser(user))
+    registerUser : user => dispatch(RegisterUser(user)),
+    toggleLogin : (isLoginFormOpen) => dispatch(loginForm(isLoginFormOpen))
 })
 
 
 
-const mapStateToProps = ({register: {currentUser}}) =>
+const mapStateToProps = (state) =>
 {
    return{
-        currentUser : currentUser,
+        currentUser : state.register.currentUser,
+        isLoginFormOpen : state.LoginFormOpen.isLoginFormOpen
         
     }
 }
@@ -60,16 +63,21 @@ class Register extends Component {
     handleSubmit = e =>
     {
         const {history} = this.props;
-        console.log(this.props)
         if(this.state.password !== this.state.c_password)
         {
             alert('Password should be match');
+            return;
             
         }
         e.preventDefault();
         this.props.registerUser(this.state);
-        history.push('/')
+        history.push('/tags')
         
+    }
+
+    openLoginForm = () =>
+    {
+        this.props.toggleLogin(this.props.isLoginFormOpen);
     }
 
 
@@ -116,12 +124,19 @@ class Register extends Component {
               </FormGroup>
 
              <div className="float-right">
-             <Button color="primary" type="submit" disabled = {(Object.entrires(this.props.currentUser).length === 0) ? true : false}>
+             <Button color="primary" type="submit">
+             {/* disabled = {(Object.entries(this.props.currentUser).length === 0) ? true : false} */}
                   Sign up
               </Button>
              </div>
              
               </Form>
+
+                <br/><br/>
+              <span className="text-muted">Already logged in</span>
+              <Button onClick={this.openLoginForm} color="link" style={{marginTop: -10}}>Login here</Button>
+                
+              
               </CardBody>
               </Card>
             </div>

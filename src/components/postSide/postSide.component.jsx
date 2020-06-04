@@ -1,19 +1,27 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {ListGroup, ListGroupItem} from 'reactstrap';
 import './postSide.style.css';
 
-export default function PostSide() {
+
+
+ function PostSide({match}) {
+
+
+     
     return (
         <div>
         <ListGroup>
             <br/>
             <ListGroupItem style={{color:"gray"}}>Popular</ListGroupItem>
             <ListGroupItem className="list-divider"></ListGroupItem>
-            <ListGroupItem><Link to="/posts/allpost" > All Posts </Link></ListGroupItem>
-            <ListGroupItem><Link to="/posts/testPage" > Test Page</Link></ListGroupItem>
+            <ListGroupItem><Link to= {`${match.url}`} > All Posts </Link></ListGroupItem>
+            <ListGroupItem><Link to= {`${match.url}/follow_posts`} > Followed User Posts</Link></ListGroupItem>
        </ListGroup>
             
         </div>
     )
 }
+
+
+export default withRouter(PostSide)

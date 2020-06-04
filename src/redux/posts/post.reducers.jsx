@@ -3,7 +3,9 @@ import {PostActionTypes} from './post.actionTypes';
 const initialState = {
     pending:false,
     posts: [],
-    error: null
+    error: null,
+    like_loading: false,
+    comment_loading: false
 }
 
 export function PostReducers(state= initialState, action)
@@ -17,7 +19,7 @@ export function PostReducers(state= initialState, action)
             }
 
         case PostActionTypes.FETCH_POST_SUCCESS:
-            
+           
             return{
                 ...state,
                 pending: false,
@@ -31,8 +33,42 @@ export function PostReducers(state= initialState, action)
             error: action.payload
         }
 
+        case PostActionTypes.LIKE_PENDING:
+            return{
+                ...state, like_loading:true
+            }
+
+        case PostActionTypes.LIKE_POST:
+            
+        return {
+            ...state, posts:{...state.posts, like_count: state.posts.like_count +1},  like_loading:false
+        }
+       
+        case PostActionTypes.LIKE_ERROR:
+            return {...state, error: action.payload, like_loading:false}
+
+
+        case PostActionTypes.UNLIKE_POST:
+           return {
+                ...state, posts:{...state.posts, like_count: state.posts.like_count - 1},  like_loading:false
+            }
+
+        case PostActionTypes.COMMENT_SUCCESS:
+            return{
+               ...state, comment_loading:false,  posts:{...state.posts, comments:[...state.posts.comments, action.payload]}
+           }     
+        // state.posts.comments.concat(action.portfolio)
+
+        case PostActionTypes.COMMENT_PENDING:
+            return{...state, comment_loading:true}
+      
+
+
         default:
             return state;
+
+
+        
 
                 
 

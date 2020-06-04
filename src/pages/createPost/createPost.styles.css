@@ -1,0 +1,22 @@
+
+
+.errorMessage
+{
+    color: red;
+}
+
+
+.successMessage
+{
+    color:green;
+}
+
+input.error
+{
+    border: 1px solid red;
+}
+
+
+textarea.error{
+    border: 1px solid red;
+}

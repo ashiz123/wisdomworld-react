@@ -3,8 +3,10 @@ import './login.styles.css';
 import {Link, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {userLogin} from '../../redux/user/user.actions';
+import {createStructuredSelector} from 'reselect';
+import { selectLoginErrorStatus} from '../../redux/user/user.selector';
 
-import {Modal, ModalBody, ModalHeader, ModalFooter, Col, Button, Form, FormGroup, Label, Input, } from 'reactstrap';
+import {Modal, ModalBody,Alert, ModalHeader, ModalFooter, Col, Button, Form, FormGroup, Label, Input, } from 'reactstrap';
 
 
 
@@ -15,6 +17,10 @@ const mapDispatchToProps = dispatch =>
     }
    
 }
+
+const mapStateToProps = createStructuredSelector({
+     loginErrorStatus : selectLoginErrorStatus
+})
 
 class Login extends Component {
     constructor( props )
@@ -47,6 +53,23 @@ class Login extends Component {
     {
         e.preventDefault();
         this.props.UserLogin(this.state);
+        this.props.history.push('/tags');
+    
+      
+
+       
+        
+    }
+
+    componentDidUpdate(prevProps)
+    {
+        if (prevProps.loginErrorStatus !== this.props.loginErrorStatus) {
+            if(this.props.loginErrorStatus === 403 || this.props.currentUser===null)
+            {
+                this.props.toggleLogin()
+            }
+            }
+           
     }
 
   
@@ -54,6 +77,8 @@ class Login extends Component {
 
    render() { 
        const{isLoginOpen, toggleLogin} = this.props
+
+      
            
         
         return ( 
@@ -61,6 +86,15 @@ class Login extends Component {
             <Modal isOpen={isLoginOpen} toggle={toggleLogin} >
             <ModalHeader toggle={toggleLogin}>Modal title</ModalHeader>
             <ModalBody>
+
+                {
+                    (this.props.loginErrorStatus === 403) && 
+                    <Alert color="danger">
+                        Username and password doesnt match.Try again.
+                    </Alert>
+                }
+                
+
                   <Form onSubmit= {this.submitLogin}>
             <FormGroup row>
                   <Label for="exampleEmail" sm={2}>Email</Label>
@@ -76,11 +110,11 @@ class Login extends Component {
               </FormGroup>
                 <br/><br/>
               <ModalFooter>
-                  <Button type="submit" color="primary" onClick={toggleLogin}>Submit</Button>{' '}
+                  <Button type="submit" color="primary" onClick={toggleLogin}>Login</Button>{' '}
                </ModalFooter>
                </Form>
 
-                <button onClick={this.handleRegister} className="btn btn-link">Sign up here</button>
+                
             </ModalBody>
 
            
@@ -93,4 +127,4 @@ class Login extends Component {
     }
 }
  
-export default withRouter(connect(null, mapDispatchToProps)(Login));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

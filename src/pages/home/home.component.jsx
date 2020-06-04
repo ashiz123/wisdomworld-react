@@ -1,63 +1,121 @@
-import React from 'react';
-import {Row,Col, Container, ListGroup, ListGroupItem,  Card, CardImg, CardText, CardBody, CardLink,
-    CardTitle, CardSubtitle} from 'reactstrap';
+import React, {useEffect} from 'react';
+import {Row,Col, Container} from 'reactstrap';
 import './home.styles.css';
-import {getPostsError, getPosts, getPostsPending} from '../../redux/posts/post.reducers';
-import PostRender from '../../components/PostsRender/postsRender.component';
+
 import HomeNavigation from './homeNavigation';
-import MyPost from './myPost.component';
-import Test from './test.component';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch
-} from "react-router-dom";
+import {connect} from 'react-redux';
+import Posts from '../../components/posts/posts.component';
+import {Switch, Route,Link, withRouter } from 'react-router-dom';
+import TagPosts from '../../components/tagPosts/tagPosts.component';
 
 
 
-export const Home = ({allPosts}) =>
+
+
+
+
+function Home({followUserPosts, tags, postByTag, allPostStatus, currentUserPosts, fetchTags, fetchPosts, currentUser,...otherProps})
+
 {
- 
-  let  {path,url}= useRouteMatch();
-  console.log(useRouteMatch());
- 
-  return(
-   
-    <Container>
-        <Row className="padding-top">
-        <Col md="3" xs="12" sm="12">
-           {/* <HomeNavigation /> */}
-           <ul>
-        <li>
-          <Link to={`${url}/rendering`}>Rendering with React</Link>
-        </li>
-        
-      </ul>
 
-        </Col>
-        <Col  md="6" xs="12" sm="12">
-         <p style={{fontWeight:"bold"}} className="text-primary">Latest Posts</p>
-          
-         <Switch>
-        <Route exact path={path} component= {MyPost} />
+  
+
+
+  useEffect(() => 
+{
+  fetchTags();
+  fetchPosts();
+  
+}, [currentUser])
+
+
+
+return(
+  
+      <Container>
+      
+      
+       
+      <Row className="padding-top">
+      <Col md="3" xs="12" sm="12">
+         <HomeNavigation />
+
+      </Col>
+
+
+
+      <Col  md="6" xs="12" sm="12">
+
         
-        <Route path={`${path}/:topicId`} component = {Test}>
-          
-        </Route>
-      </Switch>
-        </Col>
-        <Col md="3" xs="12" sm="12">Column</Col> 
+       <p style={{fontWeight:"bold"}} className="text-primary">Latest Posts</p>
+     
+
+          {/* home tag navigation */}
+        <Row>
+        <Link className = "margin-button btn btn-success btn-sm" to={`${otherProps.match.url}`}>All Posts</Link> 
+             {
+             tags.filter((tag, idx) => idx < 6).map((tag, id) => {
+               return(
+                      <Link className = "margin-button btn btn-primary btn-sm" to={`${otherProps.match.url}/${tag.title}`} key={tag.id}>{tag.title}</Link>  
+                 )
+            
+             })
+           }
         </Row>
 
+        <Switch>
+        <Route exact path={otherProps.match.path}>
+             <Posts allPosts = {followUserPosts} currentUserPosts = {currentUserPosts}  allPostStatus = {allPostStatus}/> 
+        </Route>
         
+        <Route exact  path={`${otherProps.match.url}/:tagName`} component={TagPosts}/>
+
+      </Switch>
+      
+       
+
+      </Col>
+
+
+
+      <Col md="3" xs="12" sm="12">Column</Col> 
+
+
+      </Row>
     
-    </Container>
-  )
+      
+          
+     
+  </Container>
+    )
+   
     
       }
+
+    
+
+
+
+      // function AllPosts({allPosts})
+      // {
+      //   return(
+      //   <div style={{marginTop:-30, padding: 0}}>
+      //   {
+      //     (allPosts) ?
+      //     allPosts.filter((post, idx) => idx < 2).map(({id, ...otherPostProps})  => {
+      //       return(
+      //          <PostRender key={id} {...otherPostProps}/>
+      //       )
+      //     }): <div style={{margin:50}}>
+      //       {(getPostsPending)? <div>Loading...</div> : <div>Error on page</div>}
+      //     </div>
+      // }
+      // </div>
+      //   )
+
+      // }
+
+      export default withRouter(connect(null, )(Home))
 
 
 

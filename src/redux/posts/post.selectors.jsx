@@ -9,14 +9,23 @@ export const selectPosts = createSelector(
     post => post.posts
 )
 
-export const selectPostsPreview = createSelector(
-    [selectPosts],
-    allPosts => Object.keys(allPosts).map(key=> allPosts[key])
 
+export const statusPost = createSelector(
+    [statePost],
+    status => status.pending
 )
 
-export const postToView = createSelector(
-    [selectPostsPreview],
-    viewPost => viewPost[0]
-)
+
+
+// posts data are responsed in array , so its not used. if data is object it can be used.
+// export const selectPostsPreview = createSelector(
+//     [selectPosts],
+//     allPosts => Object.keys(allPosts).map(key=> allPosts[key])
+
+// )
+
+// export const postToView = createSelector(
+//     [selectPostsPreview],
+//     viewPost => viewPost[0]
+// )
 

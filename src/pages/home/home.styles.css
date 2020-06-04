@@ -16,3 +16,14 @@
     border-bottom: 0.02rem solid gray;
     margin-bottom: 10px; 
 }
+
+
+.margin-button {
+   margin: 2px;
+}
+
+/* .a-button:hover {
+    color: black;
+    background-color: pink;
+    text-decoration: none;
+} */

@@ -1,22 +1,41 @@
 import React from 'react'
-import {Row,Col, Container,  Card, CardText, CardBody, CardLink,
-    CardTitle, CardSubtitle} from 'reactstrap';
+import {Card, CardText, CardBody, CardLink,
+    CardTitle, CardSubtitle, CardHeader} from 'reactstrap';
+import './postsRender.styles.css';
 
-export default function PostRender({title, description}) {
-  return(
-    <Col >
-        <Card>
-        <CardBody>
-        <CardTitle >{title}</CardTitle>
-          <CardSubtitle>this is subtitle</CardSubtitle>
-        </CardBody>
-        <img width="100%" src="/assets/318x180.svg" alt="Card image cap" />
-        <CardBody>
-        <CardText>{description}</CardText>
-          <CardLink href="#">Card Link</CardLink>
-          <CardLink href="#">Another Link</CardLink>
-        </CardBody>
-      </Card>
-        </Col>
+
+const PostRender = (props) =>{
+   const {otherPropsPosts, postId} = props;
+ 
+return(
+    
+   
+<Card>
+    
+    <CardBody>
+    <img  src={otherPropsPosts.user.image !==null ? otherPropsPosts.user.image.profile_image : process.env.PUBLIC_URL + '/profile_placeholder.png'} alt="Card image cap" className="user-image-post"/>
+    <span style={{marginRight:5}}>{otherPropsPosts.user.name}</span>
+    <CardSubtitle>{otherPropsPosts.title}</CardSubtitle>
+    </CardBody>
+          <img width="100%" src={otherPropsPosts.image} alt="Card image cap" />
+    <CardBody>
+    <CardText>{otherPropsPosts.description}</CardText>
+     
+      <CardLink href= {`/post_details/${postId}/${otherPropsPosts.user.id}`}>Read more...</CardLink>
+    </CardBody>
+  </Card>
+    
 )
-}
+ }
+
+ export default PostRender
+  
+
+
+
+
+
+
+
+
+

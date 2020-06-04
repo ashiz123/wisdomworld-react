@@ -5,8 +5,8 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import {RegisterReducer} from './register/register.reducers';
 import rootReducer from './rootReducers';
 // import ReduxThunk from 'redux-thunk'; 
-import thunk from 'redux-thunk';
-
+import thunk from 'redux-thunk'; 
+import {persistStore} from 'redux-persist'
 
 
 
@@ -18,6 +18,12 @@ export const ConfigureStore =
             window.devToolsExtension ? window.devToolsExtension() : f => f
           )
     );
+
+
+    export const persistor = persistStore(ConfigureStore)
+
+
+    export default {ConfigureStore, persistor}
 
 
 

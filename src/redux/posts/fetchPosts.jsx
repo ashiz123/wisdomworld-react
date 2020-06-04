@@ -1,5 +1,4 @@
 import {fetchPostsPending, fetchPostsSuccess, fetchPostsError, } from './post.actions';
-import {ProfileActionTypes} from '../profile/profile.actiontypes';
 import axios from 'axios';
 import {baseUrl} from '../base';
 
@@ -17,8 +16,12 @@ import {baseUrl} from '../base';
                 if(response.error){
                    throw(response.error);
                 }  
-                // console.log(response.data)
-                dispatch(fetchPostsSuccess(response.data))
+                 if(response.status === 200)
+                 {
+                    dispatch(fetchPostsSuccess(response.data.data));
+                   
+                 }
+                
             }
         )
     

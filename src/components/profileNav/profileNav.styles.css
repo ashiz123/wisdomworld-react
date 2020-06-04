@@ -1,0 +1,22 @@
+.img-rounded
+{
+    border-radius: 25rem;
+    width:130px;
+    margin:20px 0px;
+}
+
+.basic-info
+{
+    line-height: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    color: gray;
+}
+
+
+.truncateLongTexts {
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis 
+  }

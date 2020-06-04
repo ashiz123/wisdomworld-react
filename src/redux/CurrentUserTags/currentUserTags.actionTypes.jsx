@@ -1,0 +1,7 @@
+export const currentUserTagsActionTypes = {
+    USER_TAGS_PENDING : 'USER_TAGS_PENDING',
+    USER_TAGS_SUCCESS : 'USER_TAGS_SUCCESS',
+    USER_TAGS_FAILURE: 'USER_TAGS_FAILURE',
+    USER_TAGS : 'USER_TAGS'
+    
+}

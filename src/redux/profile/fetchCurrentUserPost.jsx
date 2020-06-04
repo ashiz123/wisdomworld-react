@@ -7,7 +7,7 @@ import {baseUrl} from '../base';
  {
      dispatch(profilePostPending())
      const token = localStorage.getItem('token');
-     await axios.get(`${baseUrl}/post/${currentUserId}`, {headers: {
+     await axios.get(`${baseUrl}/posts/${currentUserId}`, {headers: {
          'content_type': 'application/json',
          'Authorization': `Bearer ${token}`
      }}).then(

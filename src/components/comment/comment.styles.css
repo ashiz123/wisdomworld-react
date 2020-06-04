@@ -1,0 +1,21 @@
+
+
+textarea.form-control {
+    height: 72px !important;
+   
+    
+}
+
+.collapse_comment
+{
+    overflow-y: auto;
+    height:200px;
+    margin:20px;
+}
+
+.comment_user_image
+{
+    padding: 10px;
+    margin: 10px;
+    background-color: #E9D6D1 ;
+}
