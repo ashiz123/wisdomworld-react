@@ -28,7 +28,15 @@ export default function ProfileNav(props) {
     {
         setUploadmodal(!uploadmodal);
         console.log(uploadmodal);
+        
     }
+
+    // useEffect(() => {
+    //     props.getCurrentUser();
+    //     return () => {
+    //         // Anything in here is fired on component unmount.
+    //     }
+    // }, [props])
 
 
   

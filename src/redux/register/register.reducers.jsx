@@ -22,18 +22,22 @@ export function RegisterReducer(state = initialState, action) {
       return {...state, currentUser:action.user, loading_logging:false, status:200}
       
       case RegisterActionTypes.REGISTER_FAILURE:
-        return {};
+        return {...state, loading_logging:true, currentUser: {} };
+
+
+      case UserActionTypes.SET_CURRENT_USER_PENDING:
+          return {...state,  loading_logging:true, }
 
      case UserActionTypes.SET_CURRENT_USER:
           return {...state, currentUser: action.payload, loading_logging:false, status:200}
 
 
       case UserActionTypes.ERROR:
-          return{...state, status:action.status}     
+          return{...state, loading_logging:false, status:action.status}     
 
 
       case UserActionTypes.REMOVE_USER:
-            return {...state,  currentUser: {}}
+            return initialState;
 
       
       case UserActionTypes.UPDATE_USER_PROFILE_DETAIL:

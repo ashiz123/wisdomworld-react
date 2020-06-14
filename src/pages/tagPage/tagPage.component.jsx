@@ -9,10 +9,10 @@ import {selectCurrentUserTags} from '../../redux/CurrentUserTags/currentUserTags
 
 const mapDispatchedToProps = dispatch => ({
    
-    fetchSubscribeTags : (userId, tagId) => dispatch(fetchSubscribeTags(userId, tagId))
+    fetchSubscribeTags : (userId, tagId) => dispatch(fetchSubscribeTags(userId, tagId)),
+    
 })
 
-{/* <TagPage allTags = {this.props.tags} subscribedTags= {this.props.subscribedTags}  currentUser = {this.props.currentUser} fetchCurrentUserTags={() => this.props.fetchCurrentUserTags()}/>  } /> */}
 
 
 
@@ -20,33 +20,18 @@ const mapDispatchedToProps = dispatch => ({
 
 
 
- function TagPage({currentUser, allTags,subscribedTags, fetchSubscribeTags, fetchCurrentUserTags}) {
+
+
+ function TagPage({currentUser, allTags,subscribedTags, fetchSubscribeTags}) {
 
     
-
+    
     var unsubscribeTags = allTags.filter(tag => !subscribedTags.some(subscribedTag => subscribedTag.id === tag.id));
 
 
 
-    // const [tags, setTags ] = useState([]);
-
-    // function currentUserTags(id)
-    // {
-    //     fetchCurrentUserTags(id);
-    // }
    
-
-    useEffect(() => {
-        
-        return () => {
-            console.log('unmount');
-        }
-    }, [])
-
-    
-        
-    
-
+     
 
     function addTags(tagId)
     {
@@ -84,7 +69,7 @@ const mapDispatchedToProps = dispatch => ({
                            
                            <button className="btn btn-success" 
                             disabled style={{margin:5}}
-                           >{tag.title} <span className="fa fa-plus-circle"></span></button> 
+                            key={id}>{tag.title} <span className="fa fa-plus-circle"></span></button> 
                            
                         )
                     })
@@ -93,4 +78,4 @@ const mapDispatchedToProps = dispatch => ({
     )
 }
 
-export default connect(null, mapDispatchedToProps)(TagPage);
+export default connect( null, mapDispatchedToProps)(TagPage);

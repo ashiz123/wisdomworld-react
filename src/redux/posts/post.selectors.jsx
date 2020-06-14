@@ -16,6 +16,12 @@ export const statusPost = createSelector(
 )
 
 
+export const selectPostById = id => createSelector(
+    [selectPosts],
+    posts => posts.find(post=> post.id === id)
+)
+
+
 
 // posts data are responsed in array , so its not used. if data is object it can be used.
 // export const selectPostsPreview = createSelector(

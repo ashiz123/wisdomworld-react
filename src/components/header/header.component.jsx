@@ -55,6 +55,8 @@ class Header extends Component{
     
  }
 
+
+
  
 
 
@@ -64,8 +66,8 @@ render() {
  
   return (
     <>
-      <NavbarComponent toggleNavbar = {this.toggleNavbar} toggleLogin={this.toggleLogin} isNavOpen = {this.state.isNavOpen}  currentUser= {this.props.currentUser}/>
-      <Login isLoginOpen = {this.props.isLoginFormOpen} toggleLogin={this.toggleLogin} currentUser={this.props.currentUser} />
+      <NavbarComponent notifications = {this.props.notifications} toggleNavbar = {this.toggleNavbar} followUserPosts={this.props.followUserPosts}  toggleLogin={this.toggleLogin} isNavOpen = {this.state.isNavOpen}  currentUser= {this.props.currentUser}/>
+      <Login isLoginOpen = {this.props.isLoginFormOpen}  toggleLogin={this.toggleLogin} currentUser={this.props.currentUser} isLogggedIn = {this.props.isLogggedIn}/>
       
       {/* <Register toggleLogin={this.toggleLogin} /> */}
     </>

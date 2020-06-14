@@ -15,6 +15,7 @@ import {selectFollowUserStatus} from '../../redux/followUser/followUser.selector
 import Like from '../like/like.component';
 import Comment from '../comment/comment.component';
 import { useState } from 'react';
+import Paginate from '../paginate/paginate.component';
 
 
 const mapDispatchedToProps = dispatch =>({
@@ -31,9 +32,11 @@ const mapStateToProps = createStructuredSelector({
     postDetail : selectPosts,
     pending : statusPost,
     followUserStatus : selectFollowUserStatus
-    
-        
-})
+    })
+
+
+
+
 
 
 function PostDetail(props) {
@@ -42,24 +45,29 @@ function PostDetail(props) {
 
     let { postId, leaderId } = useParams();
 
-    const [disablefollow, setDisablefollow] = useState(true);
+    const [disablefollow, setDisablefollow] = useState(false);
 
-    const [disableunfollow, setDisableunfollow] = useState(true);
+    const [disableunfollow, setDisableunfollow] = useState(false);
 
     
 
-    useEffect((e)=> {
+   
+
+    useEffect(() => {
+        fetchPostDetail(postId);
+       if(Object.entries(postDetail).length > 0)
+       {
+        fetchUserFollowStatus(postDetail.user.id, currentUser.id );
+       }
        
-       fetchPostDetail(postId);
-       fetchUserFollowStatus(leaderId, currentUser.id );
-       setDisablefollow(false);
-       setDisableunfollow(false);
     }, [currentUser])
 
 
+
+    
     function followUser(e)
     {
-        if(fetchFollowUser(leaderId, currentUser.id))
+        if(fetchFollowUser(postDetail.user.id, currentUser.id))
         {
             setDisablefollow(true);
             setDisableunfollow(false);
@@ -72,7 +80,7 @@ function PostDetail(props) {
     function unfollowUser(e)
     {
         
-        if(fetchUnfollowUser(leaderId, currentUser.id))
+        if(fetchUnfollowUser(postDetail.user.id, currentUser.id))
         {
             setDisableunfollow(true);
             setDisablefollow(false);
@@ -83,12 +91,7 @@ function PostDetail(props) {
 
    
 
-
-
-
-
-
-    return (
+ return (
        <Container>  
            { pending === true ?
                
@@ -118,6 +121,19 @@ function PostDetail(props) {
     
     </CardSubtitle>
     }
+
+    <p>
+        <b>Tags: </b>
+        { postDetail.tags &&
+        
+        Object.entries(postDetail.tags).length > 0 &&
+            postDetail.tags.map((tag, id) => {
+                return (
+                   <i key={id}> {tag.title}, </i>
+                )
+            })
+        }
+    </p>
 
 
     <CardTitle>
@@ -153,6 +169,7 @@ function PostDetail(props) {
         
       </Card>
            }
+          
     </Container>
     )
 }

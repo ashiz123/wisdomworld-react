@@ -17,61 +17,41 @@ const mapStateToProps = createStructuredSelector({
     postStatus : currentUserPostStatus,
     error : currentUserError 
 })
+
+
+
+
     
 
 
-class Profile extends Component {
-   constructor(props)
-   {
-       super(props);
-     
-   }
+function Profile(props) {
+ 
 
-   componentDidMount()
-   {
-
-       console.log(this.props.currentUser)
-       this.props.getCurrentUser();
-    //    this.props.fetchCurrentUserPost(this.props.currentUser.id);
-    //     // const currentUserPost = this.state.posts.filter(({post,id}) => id === 1)
-    //     // console.log(currentUserPost);
-        
-        
-    //     // this.setState({
-    //     //     posts : currentUserPost
-    //     // })
-        
-   }
-
-   
-
-
-    render() { 
-       
-        const {path} = this.props.match;
-        // const{postStatus, error, currentUser, currentUserPosts} = this.props
+  const {path} = props.match;
+        // const{postStatus, error, currentUser, currentUserPosts} = props
        
         return ( 
             <div className="container">
              
               <Row >
                       <Col md="4">
-                          <ProfileNav currentUser = {this.props.currentUser}/>
+                          <ProfileNav currentUser = {props.currentUser} getCurrentUser = {props.getCurrentUser}/>
                       </Col>
                       
                       <Col md="8">
-                          { this.props.currentUser.id === null || this.props.currentUser.other === null &&
+                          {/* { props.currentUser.id === null || props.currentUser.other === null &&
                           <>
                           <br/> 
                           <Alert color="danger">
                               Please Update your profile
                           </Alert>
                           </>
-                        }       
+                        }    */}
+                       
               
                 <Switch>
-                    <Route path={`${path}/posts`} component={() => <CurrentUserPost status = {this.props.postStatus} error={this.props.error} currentUserPosts = {this.props.currentUserPosts} /> } />
-                    <Route path={`${path}/update-info`} component={() => <UserDetail currentUser = {this.props.currentUser}/>} />
+                    <Route path={`${path}/posts`} component={() => <CurrentUserPost status = {props.postStatus} error={props.error} currentUserPosts = {props.currentUserPosts} /> } />
+                    <Route path={`${path}/update-info`} component={() => <UserDetail currentUser = {props.currentUser}/>} />
                     <Redirect to={`${path}/posts`} />
                 </Switch>
 
@@ -85,7 +65,7 @@ class Profile extends Component {
             </div>
          );
     }
-}
+
  
 
  

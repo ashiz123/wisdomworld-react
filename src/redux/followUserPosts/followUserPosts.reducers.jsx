@@ -4,7 +4,8 @@ import {followUserPostsActionTypes} from './followUserPosts.actionTypes'
 const initialValue= {
     posts: [], 
     pending: false, 
-    error: null
+    error: null,
+    filteringPosts: []
 }
 
 export const followUserPostsReducers = (state = initialValue, action) => {
@@ -15,10 +16,14 @@ export const followUserPostsReducers = (state = initialValue, action) => {
 
 
             case followUserPostsActionTypes.FOLLOW_USER_POSTS_SUCCESS:
-                return {...state, pending:false, error: null, posts:action.payloads}
+                return {...state, pending:false, error: null, posts:action.payloads, filteringPosts: []}
 
                 case followUserPostsActionTypes.FOLLOW_USER_POSTS_FAILURE:
-                    return {...state, pending:true, error: action.payloads}
+                    return {...state, pending:false, error: action.payloads}
+
+
+                    case followUserPostsActionTypes.FOLLOW_USER_FILTERING_POSTS:
+                        return {...state, filteringPosts: action.payloads}
 
 
                 default:

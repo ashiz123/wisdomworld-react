@@ -29,8 +29,7 @@ export function fetchSubscribeTags(userId, tag_id)
             }
             if(response.data !== 'already_created')
             {
-                console.log(response);
-                dispatch(userTagsSuccess(response.data))
+               dispatch(userTagsSuccess(response.data))
               
             }
 
@@ -58,8 +57,7 @@ export function fetchCurrentUserTags(userId)
             
         }})
         .then(response => {
-            console.log(response);
-            dispatch(userTags(response.data.data));
+           dispatch(userTags(response.data.data));
         })
         .catch(error => console.log(error))
     }

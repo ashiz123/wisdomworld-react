@@ -19,7 +19,9 @@ const mapDispatchToProps = dispatch =>
 }
 
 const mapStateToProps = createStructuredSelector({
-     loginErrorStatus : selectLoginErrorStatus
+     loginErrorStatus : selectLoginErrorStatus,
+   
+
 })
 
 class Login extends Component {
@@ -53,7 +55,11 @@ class Login extends Component {
     {
         e.preventDefault();
         this.props.UserLogin(this.state);
-        this.props.history.push('/tags');
+        if(this.props.isLoggedIn == false)
+        {
+            this.props.history.push('/tags');
+        }
+       
     
       
 

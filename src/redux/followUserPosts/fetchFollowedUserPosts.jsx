@@ -4,19 +4,19 @@ import {getFollowedUserPostsFailure, getFollowedUserPostsPending, getFollowedUse
 
 
 export function fetchFollowedUserPosts(id){
-  console.log(id);
+ 
     return async dispatch => {
        
         dispatch(getFollowedUserPostsPending());
         const token = localStorage.getItem('token');
-        await axios.get(`${baseUrl}/followedUserPost/${id}`, {
+        await axios.get(`${baseUrl}/getAuthUserFollowedPosts/${id}`, {
             headers : {
                 'content-type':' application/json',
                 'Authorization' : `Bearer ${token}`
             }
         })   
         .then((response) =>{
-            
+           
             dispatch(getFollowedUserPostsSuccess(response.data));
             
         })

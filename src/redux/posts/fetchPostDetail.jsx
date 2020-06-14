@@ -6,17 +6,19 @@ import {fetchPostsPending, fetchTagPostsFailure, fetchPostsSuccess} from './post
 export function fetchPostDetail(id)
 {
     return async dispatch => {
+
         dispatch(fetchPostsPending())
         const token = localStorage.getItem('token');
         await axios.get(`${baseUrl}/post/${id}`, {headers : {
             'content-type':' application/json',
             'Authorization':  `Bearer ${token}`
         }}).then(
-            
+           
+           
             response =>{
-                if(response.data !== 'Liked already')
-                dispatch(fetchPostsSuccess(response.data));
                 console.log(response);
+               dispatch(fetchPostsSuccess(response.data));
+              
             }
         )
         .catch(

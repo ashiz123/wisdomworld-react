@@ -4,14 +4,19 @@ import {useRouteMatch, Link} from 'react-router-dom'
 
 export default function HomeNavigation() {
 
-    // const {url} = useRouteMatch();
+    const {url} = useRouteMatch();
     return (
         <div>
             <ListGroup>
             <ListGroupItem style={{color:"gray"}}>Popular</ListGroupItem>
             <ListGroupItem className="list-divider"></ListGroupItem>
-            <ListGroupItem>Trending Posts</ListGroupItem>
-            <ListGroupItem>Latest Posts</ListGroupItem>
+            <ListGroupItem>
+            <Link to={`${url}`} >Followed Post</Link>  
+            </ListGroupItem>
+            <ListGroupItem>
+            <Link to={`${url}/latest`} >Latest Post</Link>  
+            </ListGroupItem>
+            <ListGroupItem>Other Posts</ListGroupItem>
             <ListGroupItem>Hot Posts</ListGroupItem>
             </ListGroup>
         </div>

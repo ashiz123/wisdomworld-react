@@ -36,7 +36,7 @@ export const getProfileFetch = () =>async (dispatch) => {
 
 export const userLogin = user =>async (dispatch) =>
 {
-  
+   dispatch(setCurrentUserPending())
     return await axios.post(`${baseUrl}/login`, user, {
         headers: {
             'content-type': 'application/json'
@@ -52,6 +52,7 @@ export const userLogin = user =>async (dispatch) =>
       
        }else{
          throw(response.error);
+         
        }
       
     })
@@ -88,7 +89,7 @@ export const userLogin = user =>async (dispatch) =>
      
         localStorage.removeItem('token');
         storage.removeItem('persist:root')
-        //  dispatch(removeUser(user));
+         dispatch(removeUser());
         window.location.reload(false);
        
         
@@ -103,5 +104,6 @@ export const userLogin = user =>async (dispatch) =>
 
   function handleError(currentStatus) {return {type:UserActionTypes.ERROR, status: currentStatus}}
   export function setCurrentUser(user) {return {type: UserActionTypes.SET_CURRENT_USER, payload: user}}
-  function removeUser(user) {return {type: UserActionTypes.REMOVE_USER, payload: user }}
+  function setCurrentUserPending() {return {type: UserActionTypes.SET_CURRENT_USER_PENDING}}
+  function removeUser() {return {type: UserActionTypes.REMOVE_USER }}
   

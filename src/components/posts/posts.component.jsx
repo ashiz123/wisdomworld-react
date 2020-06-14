@@ -4,7 +4,11 @@ import React, { useEffect } from 'react'
 // import {Row,Col,ListGroup, ListGroupItem} from 'reactstrap';
 import PostRender from '../PostsRender/postsRender.component';
 import {Loading} from '../loading/loading.component';
-import {useLocation} from 'react-router-dom';
+
+import Post from '../post/post.component';
+import {Route, Switch, useLocation, useRouteMatch} from 'react-router-dom';
+import Paginate from '../paginate/paginate.component';
+
 
 
 
@@ -15,18 +19,17 @@ import {useLocation} from 'react-router-dom';
     
  const Posts = (props) => {
 
+ 
 
     const location = useLocation();
+    let { path, url } = useRouteMatch();
 
-    useEffect(() => {
-        console.log(location);
-    })
 
-    
+    // const paginate = Object.keys().map(i => peopleObj[i])
 
-    
 
-    if(props.allPostStatus)
+
+    if(props.allPostStatus === true)
     {
         
             // conditional rendering
@@ -52,36 +55,25 @@ import {useLocation} from 'react-router-dom';
                </div>
                 }
 
-               {
-                   location.pathname === "/home" &&
-                   <div>
-                    {props.currentUserPosts &&
-                    props.currentUserPosts.filter((post, id) => id < 5).map(({id, ...otherPropsPosts}) => {
-                   return (
-                   <PostRender key={id}  postId={id}  otherPropsPosts = {otherPropsPosts}  />
-                   )
-               })}
-               </div>
-
-               }
-
-
-               
-               
-               
-               {props.allPosts ? 
-               <div>
-                    {props.allPosts.filter((post, id) => id < 5).map(({id, ...otherPropsPosts}) => {
-                   return (
-                   <PostRender key={id}  postId={id}  otherPropsPosts = {otherPropsPosts}  />
-                   )
-               })}
-               </div>
               
-             
+                
+                {props.allPosts ? 
+               <div>
+                    {props.allPosts.map(({id, ...otherPropsPosts}) => {
+                   return (
+                   <PostRender key={id}  postId={id}  otherPropsPosts = {otherPropsPosts} url = {url}  />
+                   )
+                })}
+               </div>
                 : <div> <br/><h4>No any posts</h4></div>
                }
-               </>
+
+               <div style={{marginLeft: 50}}> 
+               <Paginate currentUser = {props.currentUser} pagination = {props.pagination}/>
+               </div>
+               
+                </>
+               
     
        )
     }

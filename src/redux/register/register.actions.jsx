@@ -38,6 +38,7 @@ export const RegisterUser =  user =>async (dispatch) =>
             dispatch(failureRegister(error));
           });
 
+          
           function requestRegister() {return {type:RegisterActionTypes.REGISTER_REQUEST}}
           function successRegister(user) { return { type: RegisterActionTypes.REGISTER_SUCCESS, user } }
           function failureRegister(error) { return { type: RegisterActionTypes.REGISTER_FAILURE, error } }

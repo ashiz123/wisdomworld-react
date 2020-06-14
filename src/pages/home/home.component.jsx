@@ -7,14 +7,23 @@ import {connect} from 'react-redux';
 import Posts from '../../components/posts/posts.component';
 import {Switch, Route,Link, withRouter } from 'react-router-dom';
 import TagPosts from '../../components/tagPosts/tagPosts.component';
+import {createStructuredSelector} from 'reselect';
+import latestPost from '../../components/latestPost/latestPost.component';
+import Post from '../../components/post/post.component';
+import {selectFilteredPosts} from '../../redux/followUserPosts/followUserPosts.selectors';
+import { filterPosts } from '../../redux/followUserPosts/filterPosts.component';
 
 
 
 
+const mapStateToProps = createStructuredSelector({
+  filteredPosts : selectFilteredPosts
+
+  
+})
 
 
-
-function Home({followUserPosts, tags, postByTag, allPostStatus, currentUserPosts, fetchTags, fetchPosts, currentUser,...otherProps})
+function Home({followUserPosts, pagination, tags, postByTag, allPostStatus, subscribedTags,  fetchTags, filteredPosts, currentUser,...otherProps})
 
 {
 
@@ -24,7 +33,7 @@ function Home({followUserPosts, tags, postByTag, allPostStatus, currentUserPosts
   useEffect(() => 
 {
   fetchTags();
-  fetchPosts();
+ 
   
 }, [currentUser])
 
@@ -52,9 +61,10 @@ return(
 
           {/* home tag navigation */}
         <Row>
-        <Link className = "margin-button btn btn-success btn-sm" to={`${otherProps.match.url}`}>All Posts</Link> 
+        <Link className = "margin-button btn btn-success btn-sm" to={`${otherProps.match.url}`}>Followed Posts</Link> 
              {
-             tags.filter((tag, idx) => idx < 6).map((tag, id) => {
+              //  .filter((tag, idx) => idx < 6)
+             subscribedTags.map((tag, id) => {
                return(
                       <Link className = "margin-button btn btn-primary btn-sm" to={`${otherProps.match.url}/${tag.title}`} key={tag.id}>{tag.title}</Link>  
                  )
@@ -64,11 +74,10 @@ return(
         </Row>
 
         <Switch>
-        <Route exact path={otherProps.match.path}>
-             <Posts allPosts = {followUserPosts} currentUserPosts = {currentUserPosts}  allPostStatus = {allPostStatus}/> 
-        </Route>
-        
+        <Route exact path={otherProps.match.path}>  <Posts pagination= {pagination} currentUser= {currentUser}  allPosts = {Object.entries(filteredPosts). length === 0 ? followUserPosts : filteredPosts }  allPostStatus = {allPostStatus}/> </Route>
+        <Route exact path={`${otherProps.match.url}/latest`} component= {latestPost} />
         <Route exact  path={`${otherProps.match.url}/:tagName`} component={TagPosts}/>
+        {/* <Route   path={`${otherProps.match.url}/post/:postId`} > <Post currentUser = {currentUser}/> </Route> */}
 
       </Switch>
       
@@ -115,7 +124,11 @@ return(
 
       // }
 
-      export default withRouter(connect(null, )(Home))
+      export default withRouter(connect(mapStateToProps )(Home))
 
 
 
+   
+   
+  
+   

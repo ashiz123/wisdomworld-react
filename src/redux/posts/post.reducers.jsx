@@ -55,7 +55,7 @@ export function PostReducers(state= initialState, action)
 
         case PostActionTypes.COMMENT_SUCCESS:
             return{
-               ...state, comment_loading:false,  posts:{...state.posts, comments:[...state.posts.comments, action.payload]}
+               ...state, comment_loading:false,  posts:{...state.posts,comment_count: state.posts.comment_count+1, comments:[...state.posts.comments, action.payload]}
            }     
         // state.posts.comments.concat(action.portfolio)
 

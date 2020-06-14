@@ -22,6 +22,13 @@ export const selectIsLoggedIn = createSelector(
 )
 
 
+export const selectNotifications = createSelector(
+    [selectCurrentUser],
+    user => user.notifications
+)
+
+
+
 
 // export const selectPostsPreview = createSelector(
 //     [selectPosts],

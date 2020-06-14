@@ -1,12 +1,17 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Card, CardText, CardBody, CardLink,
     CardTitle, CardSubtitle, CardHeader} from 'reactstrap';
 import './postsRender.styles.css';
+import Post from '../post/post.component';
+import {withRouter} from 'react-router-dom';
+
+
 
 
 const PostRender = (props) =>{
-   const {otherPropsPosts, postId} = props;
- 
+   const {otherPropsPosts, postId, match} = props;
+
+
 return(
     
    
@@ -21,14 +26,18 @@ return(
     <CardBody>
     <CardText>{otherPropsPosts.description}</CardText>
      
-      <CardLink href= {`/post_details/${postId}/${otherPropsPosts.user.id}`}>Read more...</CardLink>
+      <CardLink href= {`/post/${postId}`}>Read more...</CardLink>
+      {/* <CardLink >Read more...</CardLink> */}
+
     </CardBody>
+
+
   </Card>
     
 )
  }
 
- export default PostRender
+ export default withRouter(PostRender)
   
 
 

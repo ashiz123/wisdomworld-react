@@ -2,6 +2,7 @@ import React  from 'react';
 import './index.styles.css';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'reactstrap';
+import {Loading} from '../../components/loading/loading.component';
 import { useEffect } from 'react';
 import storage from 'redux-persist/lib/storage';
 
@@ -34,6 +35,11 @@ const Index = (props) =>{
             <div className="container" style={{marginTop:200}}>
                 <div className="text-center">
             <main role="main" className="inner cover">
+                {
+                    props.isLoggedIn &&
+                    <p style ={{textAlign:'center'}}> Loading....</p>
+                   
+                }
                
                 <p className="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
               

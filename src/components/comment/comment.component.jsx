@@ -1,5 +1,5 @@
 import React , {useEffect}from 'react';
-import { UncontrolledCollapse,FormGroup, Label, Input, Button, CardBody, Card, Row,Col } from 'reactstrap';
+import { UncontrolledCollapse,Input,CardBody, Row,Col } from 'reactstrap';
 import { useForm } from "react-hook-form";
 import './comment.styles.css';
 import {connect} from 'react-redux';
@@ -68,12 +68,12 @@ const Comment = (props) => {
                     comments.map((comment, id) => {
 
                         return(
-                            <Row style={{margin:10}}>
+                            <Row style={{margin:10}} key={id}>
                         <Col  md="2" xs="12" sm="12">
                             <div style={{height:105, marginTop:8, overflow:'hidden'}}>
-                              {comment.user_image !== null ?
-                              <img src={comment.user_image} className="img img-thumbnail" alt="" /> :
-                               process.env.PUBLIC_URL + '/profile_placeholder.png'}
+                              
+                              <img src={comment && comment.user_image !== null ? comment.user_image : process.env.PUBLIC_URL + '/profile_placeholder.png'} className="img img-thumbnail" alt="" /> 
+                              
                             
                             </div>
                                   

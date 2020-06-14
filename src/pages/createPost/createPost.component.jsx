@@ -4,6 +4,7 @@ import {addPost} from '../../redux/createPost/addPost';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {formValid} from '../../components/validation/validateForm.component';
+import { useForm } from "react-hook-form";
 import Select from 'react-select';
 import {
     Container, Col, Form,
@@ -48,6 +49,9 @@ class CreatePost extends Component
      }
 
 
+     
+
+
     handleChange = (event) =>
     {
         const {name, value} = event.target;
@@ -63,6 +67,8 @@ class CreatePost extends Component
           { selectedOption }
           // ,() => console.log(`Option selected:`, this.state.selectedOption)
         );
+
+        console.log(selectedOption);
 
         
 
@@ -114,7 +120,7 @@ class CreatePost extends Component
         this.setState({
           image: e.target.files[0]
         })
-
+        console.log(this.state.image);
         // to read the file
         let uploadedFile = e.target.files[0];
         let fileReader = new FileReader();
@@ -140,7 +146,7 @@ class CreatePost extends Component
     handleSubmit =(e) =>
     {
         e.preventDefault();
-
+        console.log(this.state.image);
 
         if(formValid(this.state)){
           // console.log(this.state);
