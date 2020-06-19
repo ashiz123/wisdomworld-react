@@ -1,6 +1,7 @@
 import React from 'react';
 import {ListGroup, ListGroupItem} from 'reactstrap';
-import {useRouteMatch, Link} from 'react-router-dom'
+import {useRouteMatch, Link} from 'react-router-dom';
+import './homeNavigation.css'
 
 export default function HomeNavigation() {
 

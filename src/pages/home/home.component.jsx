@@ -61,18 +61,18 @@ return(
 
           {/* home tag navigation */}
         <Row>
-        <Link className = "margin-button btn btn-success btn-sm" to={`${otherProps.match.url}`}>Followed Posts</Link> 
+        <Link className = "margin-button btn btn-success btn-sm" to={`${otherProps.match.url}`}>Posts</Link> 
              {
               //  .filter((tag, idx) => idx < 6)
              subscribedTags.map((tag, id) => {
                return(
-                      <Link className = "margin-button btn btn-primary btn-sm" to={`${otherProps.match.url}/${tag.title}`} key={tag.id}>{tag.title}</Link>  
+                      <Link className = "margin-button btn btn-primary btn-sm fa fa-tag" to={`${otherProps.match.url}/${tag.title}`} key={tag.id}> &nbsp; {tag.title}</Link>  
                  )
             
              })
            }
         </Row>
-
+           <br/>
         <Switch>
         <Route exact path={otherProps.match.path}>  <Posts pagination= {pagination} currentUser= {currentUser}  allPosts = {Object.entries(filteredPosts). length === 0 ? followUserPosts : filteredPosts }  allPostStatus = {allPostStatus}/> </Route>
         <Route exact path={`${otherProps.match.url}/latest`} component= {latestPost} />

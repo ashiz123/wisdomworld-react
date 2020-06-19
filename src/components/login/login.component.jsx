@@ -6,7 +6,7 @@ import {userLogin} from '../../redux/user/user.actions';
 import {createStructuredSelector} from 'reselect';
 import { selectLoginErrorStatus} from '../../redux/user/user.selector';
 
-import {Modal, ModalBody,Alert, ModalHeader, ModalFooter, Col, Button, Form, FormGroup, Label, Input, } from 'reactstrap';
+import {Modal, ModalBody,Alert, ModalHeader, ModalFooter,InputGroup, InputGroupAddon, Col, Button, Form, FormGroup, Label, Input, } from 'reactstrap';
 
 
 
@@ -89,9 +89,9 @@ class Login extends Component {
         
         return ( 
            
-            <Modal isOpen={isLoginOpen} toggle={toggleLogin} >
-            <ModalHeader toggle={toggleLogin}>Modal title</ModalHeader>
-            <ModalBody>
+            <Modal isOpen={isLoginOpen} toggle={toggleLogin} className="modal-width" >
+            <ModalHeader toggle={toggleLogin}>Login </ModalHeader>
+            <ModalBody className="modal-body-width">
 
                 {
                     (this.props.loginErrorStatus === 403) && 
@@ -99,26 +99,34 @@ class Login extends Component {
                         Username and password doesnt match.Try again.
                     </Alert>
                 }
-                
+              <div className="container">
 
                   <Form onSubmit= {this.submitLogin}>
-            <FormGroup row>
-                  <Label for="exampleEmail" sm={2}>Email</Label>
-                  <Col sm={10}>
-                  <Input type="email" name="email" id="exampleEmail" value={this.state.email} onChange={this.handleChange} placeholder="Enter Email" />
-                  </Col>
-              </FormGroup>
-              <FormGroup row>
-                  <Label for="examplePassword" sm={2}>Password</Label>
-                  <Col sm={10}>
-                  <Input type="password" name="password" id="examplePassword" value={this.state.password} onChange={this.handleChange} placeholder="Enter password" />
-                  </Col>
-              </FormGroup>
+
+                      <div style={{textAlign:"center"}}>
+                      <img  src={process.env.PUBLIC_URL + '/login_image.png'} alt="" width="120"/>
+                      </div>
+               
+               <br/>
+
+                    <InputGroup size="md">
+                        <InputGroupAddon addonType="prepend"><span className="input-group-text text-primary fa fa-envelope"></span></InputGroupAddon>
+                        <Input  type="email" name="email" id="exampleEmail" value={this.state.email} onChange={this.handleChange} placeholder="Enter Email" />
+                    </InputGroup>
+
+                <br/>
+                    
+                    <InputGroup size="md">
+                        <InputGroupAddon addonType="prepend"> <span className="input-group-text fa fa-key  fa-1x  text-primary" ></span></InputGroupAddon>
+                        <Input type="password" name="password" id="examplePassword" value={this.state.password} onChange={this.handleChange} placeholder="Enter password" />
+                    </InputGroup>
+
                 <br/><br/>
               <ModalFooter>
-                  <Button type="submit" color="primary" onClick={toggleLogin}>Login</Button>{' '}
+                  <Button type="submit" color="primary" size="lg" block onClick={toggleLogin}>Login</Button>{' '}
                </ModalFooter>
                </Form>
+               </div>  
 
                 
             </ModalBody>

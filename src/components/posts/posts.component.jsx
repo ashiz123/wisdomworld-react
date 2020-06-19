@@ -55,7 +55,7 @@ import Paginate from '../paginate/paginate.component';
                </div>
                 }
 
-              
+                
                 
                 {props.allPosts ? 
                <div>

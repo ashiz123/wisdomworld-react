@@ -25,4 +25,12 @@
         
 }
 
+.modal-width{
+    width: 40% !important;
+    padding: 20px;
+}
+
+ .modal-body-width{
+     padding: 20px !important;
+ }
  

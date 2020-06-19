@@ -112,7 +112,7 @@ function filterPosts(e)
               <Nav navbar className="mr-5" >
              
                 <NavItem>
-                  <NavLink href="/tags"  >Tags</NavLink>
+                  <NavLink href="/tags"  > <span className=" fa fa-tag"></span></NavLink>
                 </NavItem>
 
 
@@ -124,8 +124,8 @@ function filterPosts(e)
                 <NavItem>
                 {/* <NavLink href="/notifications"  >Notifications</NavLink> */}
                 <Dropdown isOpen={notificationDropdown} toggle={toggle}>
-                  <DropdownToggle nav caret>
-                    Notifications
+                  <DropdownToggle nav >
+                  <span className=" fa fa-bell"></span>
                   </DropdownToggle>
                   <DropdownMenu
                     modifiers={{
@@ -157,14 +157,14 @@ function filterPosts(e)
                
                 {/* Notification menu end */}
                
-                <NavItem style={{marginLeft:30}}>
+                <NavItem style={{marginLeft:80}}>
                   <Input placeholder="Search" name="search" onChange={e => setFilter(e.target.value)} value= {filter} onKeyPress = {filterPosts}/>
                 </NavItem>
                 </Nav>
 
               <Nav className="ml-auto" navbar>
               <NavItem style={{marginLeft:30}}>
-                  <NavLink href="/add_post">Create Post </NavLink>
+                  <NavLink href="/add_post">Create &nbsp;<span className=" fa fa-book"></span> </NavLink>
                 </NavItem>
                 
             
@@ -181,7 +181,7 @@ function filterPosts(e)
                  
                 <DropdownItem  onClick =  {currentUser &&(Object.entries(currentUser).length === 0)  ? toggleLogin : logoutUser}>
                 {currentUser &&
-                (Object.entries(currentUser).length === 0)  ? <span>Login</span> : <span>Logout</span>}
+                (Object.entries(currentUser).length === 0)  ? <span>Login</span> : <span style={{color:"red"}}>Logout</span>}
                 </DropdownItem>
                 {/* <DropdownItem divider /> */}
                 <DropdownItem>
