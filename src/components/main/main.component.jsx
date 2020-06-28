@@ -13,6 +13,7 @@ import {selectLoginFormOpen} from '../../redux/loginForm/loginForm.selector';
 import {selectPosts, statusPost  } from '../../redux/posts/post.selectors';
 import {selectAllTags} from '../../redux/tags/tags.selector';
 import {createStructuredSelector} from 'reselect';
+import {GoogleLogin} from 'react-google-login';
 
 
 
