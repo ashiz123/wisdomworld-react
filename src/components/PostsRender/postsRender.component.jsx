@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {Card, CardText, CardBody, CardLink,
-    CardTitle, CardSubtitle, CardHeader, Media, Row} from 'reactstrap';
+    CardTitle, CardSubtitle, CardHeader, Media, Row, Col} from 'reactstrap';
 import './postsRender.styles.css';
 import Post from '../post/post.component';
 import {withRouter} from 'react-router-dom';
@@ -37,8 +37,14 @@ return(
 
     
   <Row>
+    <Col md="8" >
   <img src={otherPropsPosts.user.image !== null ? otherPropsPosts.user.image.profile_image : process.env.PUBLIC_URL + '/profile_placeholder.png'} alt="Card image cap" className="user-image-post" />
   <span style={{ marginRight: 5, color:'blue' }}>{otherPropsPosts.user.name}</span>
+  </Col>
+
+  <Col md="4">
+  <span style={{float: "right"}}>{otherPropsPosts.difference}</span>
+  </Col>
   </Row>
     
     <Row>

@@ -117,10 +117,14 @@ function PostDetail(props) {
             : ''
          }
         
+        <span style={{float: "right"}}>
+            <i>Posted: {postDetail.difference}</i>
+        </span>
     
     
     </CardSubtitle>
     }
+    
 
     <p>
         <b>Tags: </b>
@@ -135,6 +139,9 @@ function PostDetail(props) {
         }
     </p>
 
+    <p>
+    
+    </p>
 
     <CardTitle>
         <h4>{postDetail.title}</h4>
