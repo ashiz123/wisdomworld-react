@@ -6,7 +6,7 @@ import {RegisterActionTypes} from '../register/register.actionType';
 
 const baseUrl = 'http://localhost:8000/api/v1';
 
-export const RegisterUser =  user =>async (dispatch) =>
+export const registerUser =  user =>async (dispatch) =>
 {
  
          dispatch(requestRegister());
@@ -39,13 +39,36 @@ export const RegisterUser =  user =>async (dispatch) =>
           });
 
           
-          function requestRegister() {return {type:RegisterActionTypes.REGISTER_REQUEST}}
-          function successRegister(user) { return { type: RegisterActionTypes.REGISTER_SUCCESS, user } }
-          function failureRegister(error) { return { type: RegisterActionTypes.REGISTER_FAILURE, error } }
+        
           // function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
          
          
             
+}
+
+function requestRegister() {return {type:RegisterActionTypes.REGISTER_REQUEST}}
+function successRegister(user) { return { type: RegisterActionTypes.REGISTER_SUCCESS, user } }
+function failureRegister(error) { return { type: RegisterActionTypes.REGISTER_FAILURE, error } }
+
+
+export function googleRegister(user){
+  return async dispatch => {
+     
+     return await axios.post(`${baseUrl}/googleRegister`, user)
+     .then(response => {
+      try{
+          
+        dispatch(successRegister(response.data.data.user));
+        localStorage.setItem('token', response.data.data.token) 
+        window.location.reload(false);
+        
+      } 
+      catch(err){
+        console.log("Error:", err.message);
+      }
+     })
+     .catch(error => console.log(error))
+  }
 }
 
 

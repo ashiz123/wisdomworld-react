@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {Card, CardText, CardBody, CardLink,
-    CardTitle, CardSubtitle, CardHeader, Media, Row, Col} from 'reactstrap';
+    CardTitle, CardSubtitle, Media, Row, Col} from 'reactstrap';
 import './postsRender.styles.css';
 import Post from '../post/post.component';
 import {withRouter} from 'react-router-dom';

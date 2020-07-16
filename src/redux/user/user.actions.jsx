@@ -101,6 +101,70 @@ export const userLogin = user =>async (dispatch) =>
 
 
 
+  export function socialLogin(credential){
+     
+    return async dispatch => {
+
+      dispatch(setCurrentUserPending())
+        return await axios.post(`${baseUrl}/googleLogin`, credential, {
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => 
+          {
+          if(response.status === 200)
+          {
+            if(response.data === "user not registered")
+            {
+               throw(response.data)
+            }
+             localStorage.setItem('token', response.data.data.token);
+             dispatch(setCurrentUser(response.data.data.user));
+           
+           // window.location.reload(false);
+         
+          }
+          else{
+            throw(response.error);
+            
+          }
+    
+       }
+        // console.log(response)
+       )
+       .catch(function (error) {
+        // if (error.response.status=== 403 ) 
+        //   {
+        //     console.log('user unauthenticated');
+        //     dispatch(handleError(error.response.status));
+            
+        //   }
+    
+        //   else if(error.response.status === 401)
+        //   {
+        //    dispatch(handleError(error.response.status));
+        //   }
+
+        //   else if(error.response === 'user not registered')
+        //   {
+        //     console.log('user not registered yet');
+        //   }
+    
+        //   else{
+        //     console.log(error.response.status);
+        //   }
+          
+        console.log(error);
+       
+    })
+
+        // dispatch(setCurrentUserPending())
+        
+
+}}
+
+
+
 
   function handleError(currentStatus) {return {type:UserActionTypes.ERROR, status: currentStatus}}
   export function setCurrentUser(user) {return {type: UserActionTypes.SET_CURRENT_USER, payload: user}}

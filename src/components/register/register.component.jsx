@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import {Card, CardBody, CardTitle, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import './register.styles.css';
 
-import {RegisterUser} from '../../redux/register/register.actions'
+import {registerUser, googleRegister} from '../../redux/register/register.actions'
 
 import {connect}from 'react-redux';
-import {loginForm} from '../../redux/loginForm/loginForm.actions'
+import {loginForm} from '../../redux/loginForm/loginForm.actions';
+import {GoogleLogin} from 'react-google-login';
+
 // import {ConfigureStore} from '../../redux/';
 import {RegisterRequest} from '../../redux/register/register.actions';
 // import {userActions} from '../../redux/register/register.actionCreator';
@@ -16,8 +18,9 @@ const url = 'http://localhost:8000/api/v1/register'
 
 
 const mapDispatchToProps = dispatch =>({
-    registerUser : user => dispatch(RegisterUser(user)),
-    toggleLogin : (isLoginFormOpen) => dispatch(loginForm(isLoginFormOpen))
+    registerUser : user => dispatch(registerUser(user)),
+    toggleLogin : (isLoginFormOpen) => dispatch(loginForm(isLoginFormOpen)),
+    socialRegister: user => dispatch(googleRegister(user))
 })
 
 
@@ -55,6 +58,21 @@ class Register extends Component {
             [name] : value
         })
       
+    }
+
+
+    responseGoogle = e => 
+    {
+        const {history} = this.props;
+        const user = {
+           
+            'token' : e.accessToken,
+            'id_token' : e.tokenObj.id_token
+
+        }
+        // console.log(user);
+        this.props.socialRegister(user)
+        history.push('/tags')
     }
 
 
@@ -131,6 +149,16 @@ class Register extends Component {
              </div>
              
               </Form>
+
+              <GoogleLogin
+                        clientId="617400413430-2516crfut6eg562cvi9rafhneugpm86o.apps.googleusercontent.com"
+                        buttonText="Register with google"
+                        onSuccess={this.responseGoogle}
+                        onFailure={this.responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                        
+                    />
+
 
                 <br/><br/>
               <span className="text-muted">Already logged in</span>

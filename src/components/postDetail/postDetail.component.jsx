@@ -6,7 +6,7 @@ import {fetchPostDetail} from '../../redux/posts/fetchPostDetail';
 import {selectPosts, statusPost} from '../../redux/posts/post.selectors';
 import {createStructuredSelector} from 'reselect';
 import {Card, CardText, CardBody, CardLink,
-    CardTitle,Button, CardSubtitle, CardHeader} from 'reactstrap';
+    CardTitle,Button, CardSubtitle} from 'reactstrap';
 import {Loading} from '../loading/loading.component';   
 import './postDetail.styles.css';
 import { fetchUserFollowStatus, fetchFollowUser, fetchUnfollowUser } from '../../redux/posts/fetchUserFollow';

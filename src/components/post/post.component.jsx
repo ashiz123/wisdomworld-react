@@ -3,7 +3,7 @@ import {useRouteMatch} from 'react-router-dom';
 import { connect } from 'react-redux';
 import {fetchPostDetail} from '../../redux/posts/fetchPostDetail';
 import {Card, CardText, CardBody, CardLink,
-    CardTitle,Button, CardSubtitle, CardHeader} from 'reactstrap';
+    CardTitle,Button, CardSubtitle} from 'reactstrap';
 import { createStructuredSelector } from 'reselect';
 import {selectPosts, statusPost} from '../../redux/posts/post.selectors';
 

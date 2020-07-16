@@ -5,7 +5,8 @@ import {connect} from 'react-redux'
 import {userLogin} from '../../redux/user/user.actions';
 import {createStructuredSelector} from 'reselect';
 import { selectLoginErrorStatus} from '../../redux/user/user.selector';
-
+import {GoogleLogin} from 'react-google-login';
+import {socialLogin} from '../../redux/user/user.actions';
 import {Modal, ModalBody,Alert, ModalHeader, ModalFooter,InputGroup, InputGroupAddon, Col, Button, Form, FormGroup, Label, Input, } from 'reactstrap';
 
 
@@ -13,7 +14,8 @@ import {Modal, ModalBody,Alert, ModalHeader, ModalFooter,InputGroup, InputGroupA
 const mapDispatchToProps = dispatch => 
 {
     return{
-        UserLogin : user => dispatch(userLogin(user))
+        UserLogin : user => dispatch(userLogin(user)),
+        SocialLogin: credential => dispatch(socialLogin(credential))
     }
    
 }
@@ -51,21 +53,36 @@ class Login extends Component {
         this.props.history.push('/register')  
       }
 
-    submitLogin = (e) =>
-    {
+    submitLogin = (e) => {
         e.preventDefault();
         this.props.UserLogin(this.state);
-        if(this.props.isLoggedIn == false)
-        {
+        if (this.props.isLoggedIn == false) {
             this.props.history.push('/tags');
         }
-       
-    
-      
-
-       
-        
     }
+
+
+    googleLogin = (e) => 
+    {
+        
+        const user = {
+           
+            'token' : e.accessToken,
+            'id_token' : e.tokenObj.id_token
+        
+        }
+        
+        this.props.SocialLogin(user);
+        this.props.toggleLogin()
+    }
+
+    //  responseGoogle = (response) => {
+        
+    //     this.signupGoogle(response);
+        
+    //   }
+
+     
 
     componentDidUpdate(prevProps)
     {
@@ -127,6 +144,15 @@ class Login extends Component {
                </ModalFooter>
                </Form>
                </div>  
+
+                    <GoogleLogin
+                        clientId="617400413430-2516crfut6eg562cvi9rafhneugpm86o.apps.googleusercontent.com"
+                        buttonText="Login"
+                        onSuccess={this.googleLogin}
+                        onFailure={this.googleLogin}
+                        cookiePolicy={'single_host_origin'}
+                        
+                    />
 
                 
             </ModalBody>
